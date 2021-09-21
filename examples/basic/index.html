@@ -83,13 +83,13 @@
 
         // const elem = animationAPI.getKeyPath('#text1').getElements()[0]
         // console.log(elem.element.effectsManager.effectElements[0].data.ef[0])
+        gui.add(params, 'playPause').onChange(() => {
+          anim.togglePause()
+        })
+
 
         gui.add(params, 'text').onChange((e) => {
           changeText('#text1', params.text)
-        })
-
-        gui.add(params, 'playPause').onChange(() => {
-          anim.togglePause()
         })
 
         changeText('#text1', params.text)
@@ -132,7 +132,7 @@
         container: document.getElementById('lottie'),
         renderer: 'svg',
         loop: true,
-        autoplay: true,
+        autoplay: false,
         rendererSettings: {
           preserveAspectRatio: 'xMidYMid meet',
         },
