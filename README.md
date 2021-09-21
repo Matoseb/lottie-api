@@ -1,3 +1,6 @@
+Rough example
+https://matoseb.com/lottie-api/examples/basic/
+
 # lottie-api
 A library to edit lottie-web animations dynamically
 
