@@ -44,6 +44,17 @@
     <script>
       var anim, animationAPI
 
+      const layerTypes = {
+        // comp: 0,
+        composition: 0,
+        solid: 1,
+        image: 2,
+        null: 3,
+        shape: 4,
+        text: 5,
+        camera: 13,
+      }
+
       const gui = new dat.GUI()
       const params = {
         text: 'insert text here',
@@ -55,21 +66,35 @@
         var mousePosition = [0, 0]
         animationAPI = lottie_api.createAnimationApi(anim)
 
+        animationAPI
+          .getLayers()
+          .getTargetElements()
+          .forEach((e) => {
+            const element = e.getTargetLayer()
+            const name = element.data.nm
+            const type = Object.entries(layerTypes).find(
+              ([key, value]) => value === e.element.data.ty
+            )?.[0]
+            // console.log(e.element.data.nm, e.element.data)
+            if (type === 'solid') {
+              console.log()
+            } else {
+              console.log(animationAPI.getKeyPath(name).getElements()[0].setText(`heyanafvflklj`))
+              // var prop = animationAPI
+              //   .getKeyPath(`${name},Effects,${sliderName},0`)
+              //   .getPropertyAtIndex(0)
+              // prop.setValue(value)
+            }
+            // const name = e.element.data.nm;
+          })
+
         function changeText(id, value) {
-          animationAPI.getKeyPath(id).getElements()[0].setText(value)
+          // animationAPI.getKeyPath(id).getElements()[0].setText(value)
           forceUpdate()
         }
 
         function forceUpdate() {
-          if (anim.isPaused) {
-            anim.renderer.renderFrame(null)
-          }
-          //     const frame = anim.currentFrame
-          //     anim.play()
-          //     requestAnimationFrame((e) => {
-          //       anim.stop()
-          //     })
-          //   }
+          if (anim.isPaused) anim.renderer.renderFrame(null)
         }
 
         function changeSlider(id, sliderName, value) {
@@ -111,38 +136,20 @@
         //     return currentValue
         //   }
         // )
-
-        window.addEventListener('mousemove', function (ev) {
-          var mouseX = 0,
-            mouseY = 0
-          if (ev.touches && ev.touches.length) {
-            var mouseX = ev.touches[0].pageX
-            var mouseY = ev.touches[0].pageY
-          } else if (ev.pageX !== undefined) {
-            mouseX = ev.pageX
-            mouseY = ev.pageY
-          }
-          mousePosition[0] = mouseX
-          mousePosition[1] = mouseY
-        })
       }
 
       var animData = {
         container: document.getElementById('lottie'),
         renderer: 'svg',
         loop: true,
-        autoplay: false,
+        autoplay: true,
         rendererSettings: {
           preserveAspectRatio: 'xMidYMid meet',
         },
-        path: 'data.json',
+        path: 'datas/solid_text.json',
       }
       anim = lottie.loadAnimation(animData)
       anim.addEventListener('DOMLoaded', init)
-
-      //   anim.onEnterFrame = function (e) {
-      //     console.log('lol')
-      //   }
     </script>
   </body>
 </html>
